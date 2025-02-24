@@ -22,7 +22,21 @@ linModel = LinearRegression()
 linModel.fit(Xtrain, Ytrain)
 
 from sklearn.metrics import mean_squared_error
-yTestPredict = linModel.predict(Xtest)
+YtestPredict = linModel.predict(Xtest)
 
-rmseLinModel = (np.sqrt(mean_squared_error(Ytest, yTestPredict)))
+rmseLinModel = (np.sqrt(mean_squared_error(Ytest, YtestPredict)))
 print("rmse in case of linear regression: ", rmseLinModel)
+
+from sklearn.preprocessing import PolynomialFeatures
+polyFeature = PolynomialFeatures(degree=2)
+
+XtrainPoly = polyFeature.fit_transform(Xtrain)
+
+polyModel = LinearRegression()
+polyModel.fit(XtrainPoly, Ytrain)
+
+XtestPoly = polyFeature.fit_transform(Xtest)
+YtestPredictPoly = polyModel.predict(XtestPoly)
+
+rmsePolyModel = (np.sqrt(mean_squared_error(Ytest, YtestPredictPoly)))
+print("the rmse in case of polynomial regression: ", rmsePolyModel)

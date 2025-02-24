@@ -3,20 +3,14 @@ import pandas as pd
 import seaborn as sns
 
 from sklearn.datasets import fetch_openml
-housing = fetch_openml(name="house_prices", as_frame=True)
+boston = fetch_openml(name="boston", version=1, as_frame=True)
+X = boston.data
+y = boston.target
 
-print(housing.keys())
-
-ames = pd.DataFrame(housing.data, columns=housing.feature_names)
-print(ames.head())
-
-ames["MEDV"] = housing.target
-
-X = ames[["LSTAT", "RM"]]
-Y = ames["MEDV"]
+print(X.head())
 
 from sklearn.model_selection import train_test_split
-Xtrain, Xtest, Ytrain, Ytest = train_test_split(X, Y, test_size=0.2, random_state=5)
+Xtrain, Xtest, Ytrain, Ytest = train_test_split(X, y, test_size=0.2, random_state=5)
 
 from sklearn.linear_model import LinearRegression
 linModel = LinearRegression()
